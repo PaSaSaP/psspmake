@@ -1,0 +1,15 @@
+CC=gcc
+RM=rm -f
+CFLAGS=-g -fPIC -std=c11
+LDFLAGS=
+LDLIBS=-lpthread
+
+SRCS=${FILE}
+OUT=/tmp/compiled_program
+ARGS=
+
+all: $(FILE)
+	${CC} ${CFLAGS} ${LDFLAGS} -o ${OUT} $^ ${LDLIBS} 
+
+run:
+	${OUT} ${ARGS}
