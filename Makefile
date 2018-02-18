@@ -1,9 +1,17 @@
 CC=gcc
 CXX=g++
 RM=rm -f
+STD=
+ifeq ("${STD}", "")
+	CSTD=c11
+	CXXSTD=c++11
+else
+	CSTD=${STD}
+	CXXSTD=${STD}
+endif
 FLAGS=-g -fPIC -c
-CFLAGS=${FLAGS} -std=c11
-CXXFLAGS=${FLAGS} -std=c++11
+CFLAGS=${FLAGS} -std=${CSTD}
+CXXFLAGS=${FLAGS} -std=${CXXSTD}
 LDFLAGS=
 LDLIBS=-lpthread
 
