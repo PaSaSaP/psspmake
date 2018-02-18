@@ -11,5 +11,5 @@ let g:pssp_std="gnu11"
 ```
 To add libraries for linking, ie. librt and libm, call:
 ```
-let g:pssp_libs="-lrt -m"
+let g:pssp_libs="-lrt -lm"
 ```
