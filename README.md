@@ -1,9 +1,6 @@
 # psspmake
 
-For example, You can put something like this into Your *.vimrc*:
-```
-set makeprg=/home/pasasap/psspmake/make.sh\ %\ $*
-nnoremap <F3> :make! run<cr>
-nnoremap <F4> :make!<cr>
-```
-For now, You should be able to compile single files from VIM using F4 if Makefile does not exist in current working directory. If it exists (ie. project directory) then this Makefile will be used for make.
+It plugin allows to compile c/cpp one file if in current working directory does not exist any Makefile. If exists then that Makefile is used to start compilation.
+
+To compile c/cpp source file opened in VIM, press F4.
+To run compiled file, press F3.
