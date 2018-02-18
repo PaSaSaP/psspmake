@@ -5,19 +5,6 @@ function usage(){
 	exit 1
 }
 
-# Get Makefile for specific file based on file extension.
-function proper_makefile(){
-	if [[ ${1} =~ ^.*\.cpp$ ]] || [[ ${1} =~ ^.*\.cxx$ ]] || [[ ${1} =~ ^.*\.cc$ ]]
-	then
-		echo "Makefile.cpp"
-	elif [[ ${1} =~ ^.*\.c$ ]]
-	then
-		echo "Makefile.c"
-	else
-		echo "Inknown file extension!" 1>&2
-	fi
-}
-
 while getopts ":h" o; do
 	case "${o}" in
 		h)
@@ -56,6 +43,6 @@ if [ -f "Makefile" ] && [ "`realpath .`" != "${SCRIPTPATH}" ]
 then
 	make ${args}
 else
-	make --no-print-directory -f "$(proper_makefile ${p})" -C "${SCRIPTPATH}" FILE="${p}" ${args}
+	make --no-print-directory -C "${SCRIPTPATH}" SRCS="${p}" ${args}
 fi
 
