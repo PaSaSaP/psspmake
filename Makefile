@@ -1,8 +1,10 @@
 CC=gcc
 CXX=g++
+SWIFTC=swiftc
+LD=g++
 RM=rm -f
 STD=
-ifeq ("${STD}", "")
+ifeq (${STD},)
 	CSTD=c11
 	CXXSTD=c++11
 else
@@ -12,14 +14,21 @@ endif
 FLAGS=-g -fPIC -c
 CFLAGS=${FLAGS} -std=${CSTD}
 CXXFLAGS=${FLAGS} -std=${CXXSTD}
-LDFLAGS=
+SWIFTFLAGS=-g -c
+LDFLAGS=-g
 LDLIBS=-lpthread
+
+ifeq ($(lastword $(suffix ${SRCS})),.swift)
+	LD=${SWIFTC}
+	LDLIBS=
+endif
 
 SRCS= # list of source files
 OBJECTS1:=$(subst .cpp,.o,${SRCS})
 OBJECTS2:=$(subst .cxx,.o,${OBJECTS1})
 OBJECTS3:=$(subst .cc,.o,${OBJECTS2})
-OBJECTS:=$(subst .c,.o,${OBJECTS3})
+OBJECTS4:=$(subst .swift,.o,${OBJECTS3})
+OBJECTS:=$(subst .c,.o,${OBJECTS4})
 EXEC_FILE=/tmp/$(shell echo ${USER} ${SCRC} | md5sum | cut -d' ' -f1)_compiled_program
 ARGS=
 
@@ -31,8 +40,11 @@ all: ${EXEC_FILE}
 %.o: %.cpp %.cxx %.cc
 	$(CXX) $(CXXFLAGS) $< -o $@
 
+%.o: %.swift
+	$(SWIFTC) $(SWIFTFLAGS) $< -o $@
+
 ${EXEC_FILE}: ${OBJECTS}
-	$(CXX) ${LDFLAGS} $^ -o $@ ${LDLIBS}
+	$(LD) ${LDFLAGS} $^ -o $@ ${LDLIBS}
 
 run: ${EXEC_FILE}
 	${EXEC_FILE} ${ARGS}
