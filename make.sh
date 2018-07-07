@@ -42,6 +42,15 @@ SCRIPTPATH=`dirname $SCRIPT`
 if [ -f "Makefile" ] && [ "`realpath .`" != "${SCRIPTPATH}" ]
 then
 	make ${args}
+elif [ -f "Package.swift" ]
+then
+	if echo ${args} | grep run >/dev/null
+	then
+		swift_cmd=run
+	else
+		swift_cmd=build
+	fi
+	swift "${swift_cmd}"
 else
 	make --no-print-directory -C "${SCRIPTPATH}" SRCS="${p}" ${args}
 fi
