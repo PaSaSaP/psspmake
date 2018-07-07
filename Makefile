@@ -29,7 +29,7 @@ OBJECTS2:=$(subst .cxx,.o,${OBJECTS1})
 OBJECTS3:=$(subst .cc,.o,${OBJECTS2})
 OBJECTS4:=$(subst .swift,.o,${OBJECTS3})
 OBJECTS:=$(subst .c,.o,${OBJECTS4})
-EXEC_FILE=/tmp/$(shell echo ${USER} ${SCRC} | md5sum | cut -d' ' -f1)_compiled_program
+EXEC_FILE=/tmp/$(shell echo ${USER} ${SRCS} | md5sum | cut -d' ' -f1)_compiled_program
 ARGS=
 
 all: ${EXEC_FILE}
