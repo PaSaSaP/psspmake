@@ -26,6 +26,6 @@ function psspmake#RunPrg()
 	exec l:exec_cmd
 endfunction
 
-nnoremap <F4> :call psspmake#MakePrg()<cr>
-nnoremap <F3> :call psspmake#RunPrg()<cr>
+nnoremap <F4> :w<cr>:call psspmake#MakePrg()<cr>
+nnoremap <F3> :w<cr>:call psspmake#RunPrg()<cr>
 
